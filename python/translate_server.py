@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from googletrans import Translator
+import os  # Import the os module
 
 app = Flask(__name__)
 CORS(app)
@@ -24,4 +25,6 @@ def translate():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    port = int(os.environ.get('PORT', 5000))  # Use the PORT environment variable
+    app.run(host='0.0.0.0', port=port)  # Bind to 0.0.0.0
+
